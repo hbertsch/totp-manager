@@ -2,6 +2,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    //https://amandeepkochhar.medium.com/typescript-error-could-not-find-a-declaration-file-for-module-xyz-dfbe6e45c2bd
+    "noImplicitAny": false,
+    "strictPropertyInitialization": false,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/pack-angular'),
+      dir: require('path').join(__dirname, './coverage/totp-manager'),
       subdir: '.',
       reporters: [
         { type: 'html' },
