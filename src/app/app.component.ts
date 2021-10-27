@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TotpClass } from './totp-class.model';
 // https://fireflysemantics.medium.com/loading-json-on-stackblitz-with-angular-bf77a1da3f8a
-import * as data from './secrets.json';
+// import * as data from './secrets.json';
 import totp from 'totp-generator';
 // https://zeroesandones.medium.com/how-to-copy-text-to-clipboard-in-angular-e99c0feda501
 import { Clipboard } from '@angular/cdk/clipboard';
-
 
 @Component({
   selector: 'app-root',
@@ -16,7 +15,7 @@ export class AppComponent implements OnInit {
   title = 'TOTP Manager';
   selected = 'Click on a code to copy it to your clipboard...';
   time = '';
-  file: any = data;
+  //file: any = data;
   totps: Array<TotpClass>;
   searchResult: Array<TotpClass>;
   validity: number;
@@ -38,13 +37,13 @@ export class AppComponent implements OnInit {
     var reader = new FileReader();
 
     reader.onload = (e) => {
-      console.log(reader.result);
       var content = reader.result as string;
-      this.totps  = convertToTotpObjectsFromString(content);
+      saveConfiguration(content);
+      var cfg = loadConfiguration();
+      this.totps  = convertToTotpObjectsFromString(cfg);
     }
 
     reader.readAsText(file);
-    
   }
 
   search(event: any): void {
@@ -81,8 +80,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.totps = convertToTotpObjects(this.file);
+    
+    var cfg = loadConfiguration();
+    this.totps = convertToTotpObjectsFromString(cfg);
     this.totps = generateCodes(this.totps);
     this.sortAscending('label');
 
@@ -123,4 +123,20 @@ function convertToTotpObjectsFromString(jsonString: string): Array<TotpClass> {
 
   var secrets: Array<TotpClass> = Array.from(JSON.parse(jsonString))
   return secrets
+}
+
+function loadConfiguration(): string{
+  var cfg = localStorage.getItem('totp-cfg') as string;
+  if(typeof(cfg) != 'undefined')
+  {
+    return cfg;
+  }
+  else
+  {
+    return '';
+  }
+}
+
+function saveConfiguration(cfg: string){
+ localStorage.setItem('totp-cfg',cfg);
 }
