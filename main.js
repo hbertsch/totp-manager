@@ -5,7 +5,7 @@ let win;
 function createWindow() {
     // Create the browser window.
     win = new BrowserWindow({
-        width: 800,
+        width: 900,
         height: 1500,
         backgroundColor: '#ffffff',
         icon: `file://${__dirname}/dist/assets/logo.png`
@@ -30,7 +30,6 @@ function createWindow() {
         win.setSize(width,height);
     });
 }
-
 
 
 // Create window on electron intializationele
