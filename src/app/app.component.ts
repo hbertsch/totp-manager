@@ -22,8 +22,30 @@ export class AppComponent implements OnInit {
   validity: number;
   sortOrder: string = 'asc';
   query: string = '';
+  selectedFile: File;
 
   constructor(private clipboard: Clipboard) { }
+
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
+    var file = this.selectedFile;
+    if(file.type != 'application/json')
+    {
+      console.log("Selected file is not a valid json file. Aborting...");
+      return;
+    }
+    
+    var reader = new FileReader();
+
+    reader.onload = (e) => {
+      console.log(reader.result);
+      var content = reader.result as string;
+      this.totps  = convertToTotpObjectsFromString(content);
+    }
+
+    reader.readAsText(file);
+    
+  }
 
   search(event: any): void {
     this.query = event.target.value;
@@ -54,7 +76,7 @@ export class AppComponent implements OnInit {
     this.totps.sort((a, b) => a[colName] < b[colName] ? 1 : a[colName] > b[colName] ? -1 : 0)
   }
 
-  searchQuery(query: string): Array<TotpClass>{
+  searchQuery(query: string): Array<TotpClass> {
     return this.totps.filter(x => x.label.toLowerCase().includes(query.toLowerCase()) == true);
   }
 
@@ -94,8 +116,11 @@ function generateCodes(secrets: Array<TotpClass>): Array<TotpClass> {
 
 function convertToTotpObjects(o: object): Array<TotpClass> {
 
-  var s_json = JSON.stringify(o)
-  var secrets: Array<TotpClass> = Array.from(JSON.parse(s_json))
+  return convertToTotpObjectsFromString(JSON.stringify(o))
+}
 
+function convertToTotpObjectsFromString(jsonString: string): Array<TotpClass> {
+
+  var secrets: Array<TotpClass> = Array.from(JSON.parse(jsonString))
   return secrets
 }

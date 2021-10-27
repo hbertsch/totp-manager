@@ -63,6 +63,34 @@
     transition: all 0.1s ease-in-out;
   }
 
+  .load {
+    all: unset;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    background-color: #b8dcff;
+    height: 10px;
+    padding: 1rem;
+    margin-right: 1rem;
+    width: 200px;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .load:hover {
+    background-color: #ffffff;
+    color: black;
+    fill: black;
+  }
+
+  .load:active {
+    background-color: #1976d2;
+    color: white;
+    fill: white;
+  }
+
   .toolbar {
     position: fixed;
     top: 0;
@@ -159,7 +187,7 @@
     height: 2rem;
   }
 
-  td{
+  td {
     border-bottom: 3px solid rgb(227, 227, 227);
   }
 
@@ -193,7 +221,10 @@
 <div class="toolbar">
   <h1>TOTP Manager</h1>
   <input type="text" (keyup)="search($event)" placeholder="search here...">
-  <h1>Load JSON</h1>
+  <input style="display: none" type="file" multiple (change)="onFileChanged($event)" #fileInput />
+  <button class="load" (click)="fileInput.click()">
+    <h2>Load JSON</h2>
+  </button>
 </div>
 
 <!-- Content -->
@@ -215,7 +246,7 @@
       </td>
       <td style="max-width: 20%;">
         <div class="card-container">
-          <button class="card" (click)="onSelect(item.code)" tabindex="0">
+          <button class="card" (click)="onSelect(item.code)">
             <span>
               <h2> {{item.code}} </h2>
             </span>
