@@ -16,14 +16,16 @@ jobs:
           npm install electron-packager -g
       - name: Build executable
         run: electron-packager . --platform=darwin
+      - name: zip
+        run: zip -r totp-manager.zip totp-manager-darwin-x64/totp-manager.app
       - name: Create new release
         uses: actions/create-release@v1
         id: create_release
         with:
           draft: false
           prerelease: false
-          release_name: ${{ github.ref }}
-          tag_name: Release ${{ github.ref }}
+          release_name: Test Release
+          tag_name: Test Release
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - name: Upload macOS artifact
@@ -32,5 +34,5 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: totp-manager-darwin-x64/totp-manager.app
-          asset_name: totp-manager.app
+          asset_path: totp-manager.zip
+          asset_name: totp-manager.zip
