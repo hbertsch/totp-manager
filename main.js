@@ -9,7 +9,9 @@ function createWindow() {
         height: 1500,
         backgroundColor: '#ffffff',
         icon: `file://${__dirname}/dist/assets/logo.png`,
-        webSecurity: false
+        webPreferences: {
+            webSecurity: false
+          }
     })
 
     //win.setResizable(false)
