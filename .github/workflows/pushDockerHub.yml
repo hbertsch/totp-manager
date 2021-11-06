@@ -11,6 +11,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install electron-packager -g
       - name: Build executable
         run: electron-packager . --platform=darwin
