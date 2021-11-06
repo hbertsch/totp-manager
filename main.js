@@ -8,7 +8,8 @@ function createWindow() {
         width: 900,
         height: 1500,
         backgroundColor: '#ffffff',
-        icon: `file://${__dirname}/dist/assets/logo.png`
+        icon: `file://${__dirname}/dist/assets/logo.png`,
+        webSecurity: false
     })
 
     //win.setResizable(false)
