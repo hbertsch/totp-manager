@@ -7,16 +7,16 @@ on:
     tags:
         - '*'
 jobs:
-  build:
+  Release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install dependencies
-        run: |
-          npm install
-          npm install electron-packager -g
-      - name: Build executable
+        run: npm install
+      - name: Build
+        run: npm run electron-build
+      - name: Pack
         run: electron-packager . --platform=darwin
       - name: zip
         run: zip -r totp-manager.zip totp-manager-darwin-x64/totp-manager.app
@@ -37,5 +37,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: totp-manager.zip
-          asset_name: totp-manager.zip
+          asset_name: totp-manager_macOS.zip
           asset_content_type: application/zip

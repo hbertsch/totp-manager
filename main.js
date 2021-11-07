@@ -1,4 +1,6 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('electron');
+const path = require('path');
+const url = require('url');
 
 let win;
 
@@ -9,14 +11,23 @@ function createWindow() {
         height: 1500,
         backgroundColor: '#ffffff',
         icon: `file://${__dirname}/dist/assets/logo.png`,
-        webPreferences: {
-            webSecurity: false
-          }
+        // webPreferences: {
+        //     webSecurity: false
+        //   }
     })
 
     //win.setResizable(false)
     //win.setAlwaysOnTop(true);
+    //win.loadFile(`file://${__dirname}/dist/index.html`)
     win.loadURL(`file://${__dirname}/dist/index.html`)
+
+    // win.loadURL(url.format({
+    //     pathname: path.join(__dirname, 'dist/index.html'),
+    //     protocol: 'file:',
+    //     slashes: true
+    //   }));
+      
+      
     
     //// uncomment below to open the DevTools.
     win.webContents.openDevTools()
