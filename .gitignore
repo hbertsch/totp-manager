@@ -3,6 +3,8 @@ totp-manager*/
 *secrets.json
 .vscode/
 .editorconfig
+package-lock.json
+
 # compiled output
 /dist
 /tmp
