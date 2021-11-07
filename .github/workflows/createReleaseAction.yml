@@ -17,8 +17,8 @@ jobs:
           npm install
           npm install electron-packager -g
       - name: Build
-        run: npm run electron-build
-      - name: Pack
+        run: npm run build
+      - name: Pack for macOS
         run: electron-packager . --platform=darwin
       - name: zip
         run: zip -r totp-manager.zip totp-manager-darwin-x64/totp-manager.app
