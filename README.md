@@ -13,7 +13,7 @@
 
 > Releases for **Linux** and **Windows** are **missing** and will be added later one (once if have time for that)
 
-Check the [release section](https://github.com/hbertsch/totp-manager) to download the latest release.
+Check the [release section](https://github.com/hbertsch/totp-manager/releases) to download the latest release.
 
 ## Quick Demo
 
