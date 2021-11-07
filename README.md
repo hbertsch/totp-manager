@@ -1,27 +1,45 @@
-# PackAngular
+# TOTP Manager
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.11.
+`TOTP Manager` is a tool that let you manage your one time codes based on a `json` configuration file .
 
-## Development server
+**The main features are:**
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- **Loading** a collection of TOTP settings from file (`json`: see [example](#Example-Configuration-File))
+- **Order** them by label (ascending / descending)
+- **Search** for arbitrary string 
+- Code is **copied to clipboard** on `left click` so you can paste it using `crtl+v` or `cmd+v`
 
-## Code scaffolding
+## Latest Release
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+> Releases for **Linux** and **Windows** are **missing** and will be added later one (once if have time for that)
 
-## Build
+Check the [release section](https://github.com/hbertsch/totp-manager) to download the latest release.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Quick Demo
 
-## Running unit tests
+![quick_demo](resources/quick_demo.gif)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Example Configuration File
 
-## Running end-to-end tests
+Use the codes provided by the TOTP setup dialogs (or extract them from the QR-Codes by scanning them) and save them in a `json`by using the following format (**example file** can be found in this repository under `resources/example-secrets.json`):
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```json
+[
+    {
+      "key": "ATDFYYP2NN6FYH3L",
+      "label": "Microsoft.com"
+    },
+    {
+      "key": "ATDFYYP2NN6FYH4L",
+      "label": "GitHub.com"
+    },
+    {
+      "key": "ATDFYYP2NN6FYH5L",
+      "label": "Google.com"
+    }
+]
+```
 
-## Further help
+## Fundamentals
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+If you are interested in the fundamentals of how TOTP generation is working, check out [my other TOTP repository](https://github.com/hbertsch/simple-totp).
