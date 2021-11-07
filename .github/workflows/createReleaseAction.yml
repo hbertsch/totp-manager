@@ -13,7 +13,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install electron-packager -g
       - name: Build
         run: npm run electron-build
       - name: Pack
