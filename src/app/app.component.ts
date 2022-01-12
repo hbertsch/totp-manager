@@ -95,7 +95,9 @@ export class AppComponent implements OnInit {
         this.searchResult = this.totps;
       }
     }, 1000);
+
   }
+
 }
 
 function generateCodes(secrets: Array<TotpClass>): Array<TotpClass> {

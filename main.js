@@ -10,7 +10,11 @@ function createWindow() {
         width: 900,
         height: 1500,
         backgroundColor: '#ffffff',
+        // electron-builder configuration
+        //icon: path.join(__dirname, "./build/r_icon.png"),
+        // electron-packager configuration
         icon: `file://${__dirname}/dist/assets/logo.png`,
+        
         // webPreferences: {
         //     webSecurity: false
         //   }
@@ -19,16 +23,25 @@ function createWindow() {
     //win.setResizable(false)
     //win.setAlwaysOnTop(true);
     //win.loadFile(`file://${__dirname}/dist/index.html`)
-    win.loadURL(`file://${__dirname}/dist/index.html`)
+    //win.loadURL(`file://${__dirname}/dist/index.html`)
 
-    // win.loadURL(url.format({
-    //     pathname: path.join(__dirname, 'dist/index.html'),
-    //     protocol: 'file:',
-    //     slashes: true
-    //   }));
-      
+    //electron-packager configuration
+    win.loadURL(url.format({
+        pathname: path.join(__dirname, 'dist/index.html'),
+        protocol: 'file:',
+        slashes: true
+      }));
     
-    //// uncomment below to open the DevTools.
+    // electron-builder configuration
+    // win.loadURL(
+    //     url.format({
+    //     pathname: path.join(__dirname, "./build/index.html"),
+    //     protocol: "file",
+    //     slashes: true
+    //     })
+    //    );
+    
+    // uncomment below to open the DevTools.
     //win.webContents.openDevTools()
     
     // Event when the window is closed.
@@ -45,7 +58,7 @@ function createWindow() {
 }
 
 
-// Create window on electron intializationele
+// Create window on electron intialization
 app.on('ready', createWindow)
 
 // Quit when all windows are closed.
