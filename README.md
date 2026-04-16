@@ -1,10 +1,11 @@
-# TOTP Manager
+# TOTP Manager — Offline Desktop Authenticator App
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](LICENSE)
 [![Build](https://github.com/hbertsch/totp-manager/actions/workflows/release.yml/badge.svg)](https://github.com/hbertsch/totp-manager/actions)
 
-A lightweight desktop app for managing Time-based One-Time Passwords (TOTP).
-Built with [Tauri 2](https://v2.tauri.app/) and vanilla JavaScript — no frameworks, no npm dependencies.
+A free, open-source desktop authenticator for managing TOTP (Time-based One-Time Password) two-factor authentication codes. Works fully offline — your secrets never leave your machine. Available for macOS, Linux, and Windows.
+
+Built with [Tauri 2](https://v2.tauri.app/) and vanilla JavaScript — no frameworks, no bloat, no telemetry.
 
 ![Quick Demo](resources/quick_demo.gif)
 
