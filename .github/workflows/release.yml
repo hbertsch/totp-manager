@@ -56,8 +56,19 @@ jobs:
       - name: Install Tauri CLI
         run: cargo install tauri-cli --version "^2" --locked
 
-      - name: Build
-        run: cargo tauri build --target ${{ matrix.target }}
+      - name: Build (macOS)
+        if: startsWith(matrix.platform, 'macos')
+        run: cargo tauri build --ci --target ${{ matrix.target }}
+        env:
+          APPLE_SIGNING_IDENTITY: '-'
+
+      - name: Build (Linux)
+        if: matrix.platform == 'ubuntu-22.04'
+        run: cargo tauri build --ci --target ${{ matrix.target }}
+
+      - name: Build (Windows)
+        if: matrix.platform == 'windows-latest'
+        run: cargo tauri build --ci --target ${{ matrix.target }} --no-sign
 
       - name: Upload artifacts
         uses: softprops/action-gh-release@v2
