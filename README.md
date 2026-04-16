@@ -1,25 +1,43 @@
 # TOTP Manager
 
-`TOTP Manager` is a tool that let you manage your one time codes based on a `json` configuration file .
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](LICENSE)
+[![Build](https://github.com/hbertsch/totp-manager/actions/workflows/release.yml/badge.svg)](https://github.com/hbertsch/totp-manager/actions)
 
-**The main features are:**
+A lightweight desktop app for managing Time-based One-Time Passwords (TOTP).
+Built with [Tauri 2](https://v2.tauri.app/) and vanilla JavaScript — no frameworks, no npm dependencies.
 
-- **Loading** a collection of TOTP settings from file (`json`: see [example](#Example-Configuration-File))
-- **Order** them by label (ascending / descending)
-- **Search** for arbitrary string 
-- Code is **copied to clipboard** on `left click` so you can paste it using `crtl+v` or `cmd+v`
+## What is TOTP?
 
-## Latest Release
+TOTP (Time-based One-Time Password) is the standard behind authenticator apps
+like Google Authenticator or Authy. It generates a 6-digit code from a shared
+secret key that changes every 30 seconds. TOTP Manager lets you store your
+secret keys locally and view all your codes in one place.
 
-> Releases for **Linux** and **Windows** are **missing** and will be added later one (once I have time for that)
+## Features
 
-Check the [release section](https://github.com/hbertsch/totp-manager/releases) to download the latest release.
+- **Load** TOTP secrets from a JSON file
+- **Sort** entries alphabetically (ascending / descending)
+- **Search** for entries by label
+- **Copy** codes to clipboard with a single click
 
-## Quick Demo
+## Platform Support
 
-![quick_demo](resources/quick_demo.gif)
+| Platform | Architecture | Status |
+|----------|-------------|--------|
+| macOS    | ARM64 (M1+) | Supported |
+| macOS    | x64 (Intel) | Supported |
+| Linux    | x64         | Supported |
+| Windows  | x64         | Supported |
 
-## Build
+## Download
+
+Check the [Releases](https://github.com/hbertsch/totp-manager/releases) page
+for pre-built binaries.
+
+> **macOS (unsigned build):** On first launch, right-click the app and select
+> Open to bypass Gatekeeper.
+
+## Build from Source
 
 ### Prerequisites
 
@@ -44,37 +62,64 @@ cargo tauri build
 # Output: src-tauri/target/release/bundle/macos/TOTP Manager.app
 ```
 
-> **Note for macOS (unsigned build):** On first launch you may need to right-click → Open
-> to bypass Gatekeeper, as the binary is not code-signed.
+## Configuration
 
-### Migration from the previous Electron version
-
-The app stores its config under a different origin (`tauri://localhost` vs the old Electron origin).
-After upgrading, click **Load JSON** once to re-import your secrets file — this is a one-time step.
-
-
-
-## Example Configuration File
-
-Use the codes provided by the TOTP setup dialogs (or extract them from the QR-Codes by scanning them) and save them in a `json`by using the following format (**example file** can be found in this repository under `resources/example-secrets.json`):
+Use the codes provided by the TOTP setup dialogs (or extract them from the
+QR codes by scanning them) and save them in a JSON file using the following
+format (an example file can be found in this repository under
+`resources/example-secrets.json`):
 
 ```json
 [
-    {
-      "key": "ATDFYYP2NN6FYH3L",
-      "label": "Microsoft.com"
-    },
-    {
-      "key": "ATDFYYP2NN6FYH4L",
-      "label": "GitHub.com"
-    },
-    {
-      "key": "ATDFYYP2NN6FYH5L",
-      "label": "Google.com"
-    }
+  {
+    "key": "ATDFYYP2NN6FYH3L",
+    "label": "Microsoft.com"
+  },
+  {
+    "key": "ATDFYYP2NN6FYH4L",
+    "label": "GitHub.com"
+  },
+  {
+    "key": "ATDFYYP2NN6FYH5L",
+    "label": "Google.com"
+  }
 ]
 ```
 
-## Fundamentals
+Then click **Load JSON** in the app toolbar to import the file.
 
-If you are interested in the fundamentals of how TOTP generation is working, check out [my other TOTP repository](https://github.com/hbertsch/simple-totp).
+## Security
+
+**Secret keys are stored in the browser's `localStorage` as plain text.**
+This means:
+
+- Secrets are stored locally on your machine only — nothing is sent over the network
+- Any code running in the Tauri webview context could access them
+- There is no encryption at rest
+
+This is comparable to how browser-based authenticator extensions work.
+For higher-security needs, consider a hardware token or a vault-backed solution.
+
+If you discover a security vulnerability, please see [SECURITY.md](SECURITY.md).
+
+## How It Works
+
+The app uses the [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+to compute HMAC-SHA1 signatures from your secret keys and the current time step,
+following [RFC 6238](https://datatracker.ietf.org/doc/html/rfc6238). The resulting
+6-digit codes refresh every 30 seconds.
+
+For a standalone implementation of the TOTP algorithm, see
+[simple-totp](https://github.com/hbertsch/simple-totp).
+
+<details>
+<summary>Migrating from the Electron version</summary>
+
+The Tauri version stores config under a different origin. After upgrading,
+click **Load JSON** once to re-import your secrets file — one-time step.
+
+</details>
+
+## License
+
+This project is licensed under the [GNU General Public License v3.0](LICENSE).

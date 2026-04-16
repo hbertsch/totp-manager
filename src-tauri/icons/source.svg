@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- Background circle -->
+  <circle cx="512" cy="512" r="480" fill="#1976d2"/>
+
+  <!-- Shield shape -->
+  <path d="M512 140 L780 260 L780 520 Q780 740 512 880 Q244 740 244 520 L244 260 Z"
+        fill="#ffffff" opacity="0.95"/>
+
+  <!-- Clock face -->
+  <circle cx="512" cy="500" r="200" fill="none" stroke="#1976d2" stroke-width="24"/>
+
+  <!-- Clock center dot -->
+  <circle cx="512" cy="500" r="16" fill="#1976d2"/>
+
+  <!-- Clock hand - minute (pointing to 12) -->
+  <line x1="512" y1="500" x2="512" y2="340" stroke="#1976d2" stroke-width="20" stroke-linecap="round"/>
+
+  <!-- Clock hand - hour (pointing to ~2) -->
+  <line x1="512" y1="500" x2="600" y2="410" stroke="#1976d2" stroke-width="20" stroke-linecap="round"/>
+
+  <!-- Small tick marks around the clock -->
+  <line x1="512" y1="310" x2="512" y2="330" stroke="#1976d2" stroke-width="8" stroke-linecap="round"/>
+  <line x1="512" y1="670" x2="512" y2="690" stroke="#1976d2" stroke-width="8" stroke-linecap="round"/>
+  <line x1="322" y1="500" x2="342" y2="500" stroke="#1976d2" stroke-width="8" stroke-linecap="round"/>
+  <line x1="682" y1="500" x2="702" y2="500" stroke="#1976d2" stroke-width="8" stroke-linecap="round"/>
+</svg>
