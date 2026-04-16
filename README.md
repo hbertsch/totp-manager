@@ -6,6 +6,8 @@
 A lightweight desktop app for managing Time-based One-Time Passwords (TOTP).
 Built with [Tauri 2](https://v2.tauri.app/) and vanilla JavaScript — no frameworks, no npm dependencies.
 
+![Quick Demo](resources/quick_demo.gif)
+
 ## What is TOTP?
 
 TOTP (Time-based One-Time Password) is the standard behind authenticator apps
@@ -34,8 +36,14 @@ secret keys locally and view all your codes in one place.
 Check the [Releases](https://github.com/hbertsch/totp-manager/releases) page
 for pre-built binaries.
 
-> **macOS (unsigned build):** On first launch, right-click the app and select
-> Open to bypass Gatekeeper.
+> **macOS (unsigned build):** The app is not notarized, so macOS will block it
+> on first launch. To open it:
+> 1. Double-click the app — macOS will show a warning. Click **Fertig** / **Done**.
+> 2. Go to **System Settings > Privacy & Security**, scroll down, and click
+>    **Open Anyway** next to the TOTP Manager message.
+> 3. Enter your password. The app will launch normally from now on.
+>
+> Alternatively, run `xattr -cr /Applications/TOTP\ Manager.app` in Terminal.
 
 ## Build from Source
 
