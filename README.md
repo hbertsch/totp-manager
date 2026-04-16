@@ -19,45 +19,38 @@ Check the [release section](https://github.com/hbertsch/totp-manager/releases) t
 
 ![quick_demo](resources/quick_demo.gif)
 
-## Build 
+## Build
 
-### Install requirements
+### Prerequisites
 
-```
-npm install
-```
+```bash
+# Install Rust (if not present)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-### Local testing (Browser) 
-
-```
-ng serve
+# Install Tauri CLI
+cargo install tauri-cli --version "^2"
 ```
 
-### Build for platform (Executable)
+### Development (hot-reload)
 
-In case you have not already installed `electron-packager` you can do this by using:
-
-```shell
-# Globally
-npm install electron-packager -g
-# Locally 
-npm install electron-packager -D
+```bash
+cargo tauri dev
 ```
 
-For building the executables use:
+### Production build
 
-```shell
-# 1st you need to build the angular content
-# otherwise there is nothing to pack and your electorn app will stay blank
-ng build
-
-# Mac
- electron-packager . --platform=darwin --overwrite
-# Linux
-electron-packager . --platform=linux
-# Windows
-electron-packager . --platform=win32
+```bash
+cargo tauri build
+# Output: src-tauri/target/release/bundle/macos/TOTP Manager.app
 ```
+
+> **Note for macOS (unsigned build):** On first launch you may need to right-click → Open
+> to bypass Gatekeeper, as the binary is not code-signed.
+
+### Migration from the previous Electron version
+
+The app stores its config under a different origin (`tauri://localhost` vs the old Electron origin).
+After upgrading, click **Load JSON** once to re-import your secrets file — this is a one-time step.
 
 
 

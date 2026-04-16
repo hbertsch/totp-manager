@@ -1,50 +1,24 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-totp-manager*/
+# Secrets
 *secrets.json
-.vscode/
-.editorconfig
-package-lock.json
 
-# compiled output
-/dist
-/tmp
-/out-tsc
-# Only exists if Bazel was run
-/bazel-out
+# Tauri build output
+src-tauri/target/
+src-tauri/gen/
 
-# dependencies
+# Dependencies
 /node_modules
 
-# profiling files
-chrome-profiler-events*.json
+# Claude / AI tooling
+.claude/
+
+# Internal docs
+docs/
 
 # IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
+.vscode/
+.idea/
 *.sublime-workspace
 
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
-
-# misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
-/typings
-
-# System Files
+# System files
 .DS_Store
 Thumbs.db
