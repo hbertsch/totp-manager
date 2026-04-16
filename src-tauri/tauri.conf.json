@@ -1,6 +1,6 @@
 {
   "productName": "TOTP Manager",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "identifier": "com.hbertsch.totp-manager",
   "build": {
     "frontendDist": "../ui"

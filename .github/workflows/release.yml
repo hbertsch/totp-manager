@@ -60,6 +60,29 @@ jobs:
         if: startsWith(matrix.platform, 'macos')
         run: cargo tauri build --ci --target ${{ matrix.target }}
 
+      - name: Sign and repackage macOS app
+        if: startsWith(matrix.platform, 'macos')
+        run: |
+          APP="src-tauri/target/${{ matrix.target }}/release/bundle/macos/TOTP Manager.app"
+          DMG=$(ls src-tauri/target/${{ matrix.target }}/release/bundle/dmg/*.dmg)
+
+          # Tauri's --ci mode skips bundle signing, leaving only the linker
+          # signature. This makes Gatekeeper report the app as "damaged".
+          # A proper ad-hoc codesign seals the bundle resources and Info.plist.
+          codesign --force --deep -s - "$APP"
+          codesign --verify --deep --strict "$APP"
+
+          # Recreate the DMG with the properly signed app
+          rm "$DMG"
+          hdiutil create -volname "TOTP Manager" -srcfolder "$APP" -ov -format UDZO "$DMG"
+
+          # Recreate the .app.tar.gz with the properly signed app
+          TARGZ=$(ls src-tauri/target/${{ matrix.target }}/release/bundle/macos/*.app.tar.gz 2>/dev/null || true)
+          if [ -n "$TARGZ" ]; then
+            rm "$TARGZ"
+            tar -czf "$TARGZ" -C "$(dirname "$APP")" "$(basename "$APP")"
+          fi
+
       - name: Build (Linux)
         if: matrix.platform == 'ubuntu-22.04'
         run: cargo tauri build --ci --target ${{ matrix.target }}
